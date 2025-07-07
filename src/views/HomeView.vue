@@ -64,6 +64,7 @@
     import apiService from '@/services/apiService';
     import Modal from '@/components/Modal.vue'; // Importa el componente Modal
 
+
     const { user: authenticatedUser } = useAuth();
     const { fetchUnreadCount } = useNotifications();
 
@@ -203,11 +204,6 @@
     }
 
     /* Clases para el color del texto del título del modal */
-    .text-danger {
-        color: #dc3545;
-    }
-    .text-success {
-        color: #28a745;
-    }
+    
     </style>
     

@@ -4,7 +4,8 @@
     <header v-if="isAuthenticated"> <!-- Usar isAuthenticated del composable -->
       <nav>
         <router-link to="/">Inicio</router-link> |
-        <router-link to="/notifications">Notificaciones</router-link>
+        <router-link to="/notifications">Notificaciones</router-link> |
+        <router-link to="/profile">Mi Perfil</router-link>
       </nav>
       <div class="header-actions">
         <NotificationBell />

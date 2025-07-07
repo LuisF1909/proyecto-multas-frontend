@@ -11,36 +11,46 @@
         <label for="password">Contraseña:</label>
         <input type="password" id="password" v-model="password" required />
       </div>
+      <!-- Casilla "Recordarme" -->
+      <div class="form-group-inline">
+        <input type="checkbox" id="remember" v-model="remember" />
+        <label for="remember">Recordarme</label>
+      </div>
       <button type="submit" :disabled="isLoading">
         {{ isLoading ? 'Ingresando...' : 'Ingresar' }}
       </button>
       <p v-if="authError" class="error-message">{{ authError }}</p>
     </form>
   </div>
+  <div class="extra-links">
+  <router-link :to="{ name: 'ForgotPassword' }">¿Olvidaste tu contraseña?</router-link>
+</div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useAuth } from '@/composables/useAuth'; // Importa el composable
+import { useAuth } from '@/composables/useAuth';
 
-const { attemptLogin, isLoading, error: authError } = useAuth(); // Obtén las funciones y estado del composable
+const { attemptLogin, isLoading, error: authError } = useAuth();
 
-const email = ref('it.user@example.com'); // Para pruebas, usa un usuario del seeder
-const password = ref('password'); // Contraseña del seeder
+const email = ref('it.user@example.com'); // Usuario de pruebas
+const password = ref('password');         // Contraseña de pruebas
+const remember = ref(false);              // Estado de "Recordarme"
 
 const handleLogin = async () => {
   try {
-    await attemptLogin({ email: email.value, password: password.value });
-    // La redirección la maneja attemptLogin
+    await attemptLogin({
+      email: email.value,
+      password: password.value,
+      remember: remember.value
+    });
   } catch (error) {
-    // El error ya se maneja y se muestra a través de authError en el template
     console.log("LoginView: El error de login fue manejado por useAuth.");
   }
 };
 </script>
 
 <style scoped>
-/* ... (estilos existentes sin cambios) ... */
 .login-view {
   max-width: 400px;
   margin: 50px auto;
@@ -90,4 +100,21 @@ const handleLogin = async () => {
   margin-top: 15px;
   text-align: center;
 }
-</style>
+.form-group-inline {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.form-group-inline input[type="checkbox"] {
+  margin-right: 10px;
+  width: auto;
+}
+.form-group-inline label {
+  margin-bottom: 0;
+  font-weight: normal;
+}
+.extra-links {
+  text-align: center;
+  margin-top: 20px;
+} 
+</style>  

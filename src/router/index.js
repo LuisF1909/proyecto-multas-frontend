@@ -5,7 +5,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import NotificationsView from '../views/NotificationsView.vue';
-// import NotFoundView from '../views/NotFoundView.vue'; // Si creas una vista 404
+import ProfileView from '../views/ProfileView.vue';
+import ForgotPasswordView from '../views/ForgotPasswordView.vue';
+import ResetPasswordView from '../views/ResetPasswordView.vue';
+
 
 const routes = [
     {
@@ -25,8 +28,25 @@ const routes = [
         name: 'Notifications',
         component: NotificationsView, // Asigna el componente
         meta: { requiresAuth: true }
-    }
-    // { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView }
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: ProfileView,
+        meta: { requiresAuth: true }
+    },
+    {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: ForgotPasswordView,
+    meta: { guestOnly: true }
+  },
+  {
+    path: '/reset-password/:token', // El token viene como parámetro en la URL
+    name: 'ResetPassword',
+    component: ResetPasswordView,
+    meta: { guestOnly: true }
+  }
 ];
 
 const router = createRouter({

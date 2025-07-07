@@ -74,10 +74,15 @@ export default {
   getApiClient: () => apiClient, // Para acceso directo si es necesario
 
   // Métodos de autenticación
-  async login(credentials) {
-    await getCsrfCookie(); // Asegura la cookie CSRF antes del login
-    return apiClient.post('/login', credentials);
-  },
+  async login(credentials) { // credentials ahora puede incluir { email, password, remember }
+  await getCsrfCookie();
+  return apiClient.post('/login', credentials);
+},
+// ... (register, logout, fetchUser sin cambios) ...
+async changePassword(passwords) {
+  await getCsrfCookie();
+  return apiClient.post('/user/change-password', passwords);
+},
   async register(userData) {
     await getCsrfCookie();
     return apiClient.post('/register', userData);
@@ -125,5 +130,13 @@ export default {
   async getDepartments() {
   return this.getApiClient().get('/departments');
 },
-
+// Métodos para recuperación de contraseña
+async forgotPassword(email) {
+  await getCsrfCookie();
+  return apiClient.post('/forgot-password', { email });
+},
+async resetPassword(credentials) {
+  await getCsrfCookie();
+  return apiClient.post('/reset-password', credentials);
+},
 };
